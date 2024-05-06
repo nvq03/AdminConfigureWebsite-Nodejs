@@ -11,14 +11,18 @@
         <h2>Update User</h2>
         <form action="/update/<%= user._id %>" method="post">
             <div class="form-group">
-                <label for="name">Name update: </label>
+                <label for="name">Name update:</label>
                 <input type="text" id="name" name="username" placeholder="Enter your name" required autocomplete="off" value="<%= user.name %>">
             </div>
             <div class="form-group">
-                <label for="password">Password update: </label>
+                <label for="password">Password update:</label>
                 <input type="password" id="password" name="password" placeholder="Enter your password" required value="<%= user.password %>">
             </div>
-                <p>show password<input style="width: auto;vertical-align: middle; width: 20px; height: 20px;" class="checkbox" type="checkbox" id="showPasswordCheckbox"></p>
+            <div class="form-group">
+                <label for="email">Email update:</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required autocomplete="off" value="<%= user.email %>">
+            </div>
+            <p>Show password<input style="width: auto;vertical-align: middle; width: 20px; height: 20px;" class="checkbox" type="checkbox" id="showPasswordCheckbox"></p>
             <button type="submit" class="submit-btn">Update User</button>
         </form>
     </div>

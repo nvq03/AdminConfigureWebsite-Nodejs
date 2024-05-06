@@ -51,7 +51,8 @@ exports.getDeletePage = async (req, res) => {
 exports.createUser = async (req, res) => {
   const data = {
     name: req.body.username,
-    password: req.body.password
+    password: req.body.password,
+    email: req.body.email
   };
 
   const existingUser = await User.findOne({ name: data.name });
@@ -63,7 +64,6 @@ exports.createUser = async (req, res) => {
     console.log("Thêm người dùng thành công");
   }
 };
-
 // Hiển thị danh sách người dùng
 exports.displayUsers = async (req, res) => {
   const users = await User.find();
@@ -75,14 +75,15 @@ exports.updateUser = async (req, res) => {
   const userId = req.params.id;
   const updatedData = {
     name: req.body.username,
-    password: req.body.password
+    password: req.body.password,
+    email: req.body.email
   };
 
   try {
     await User.updateOne({ _id: userId }, { $set: updatedData });
     console.log("Cập nhật người dùng thành công");
     res.redirect("/home");
-  } catch(error) {
+  } catch (error) {
     console.error("Lỗi khi cập nhật người dùng:", error);
     res.send("Đã xảy ra lỗi trong quá trình cập nhật người dùng");
   }
@@ -110,7 +111,6 @@ exports.loginUser = async (req, res) => {
     res.status(500).send("Lỗi server");
   }
 };
-
 // Xóa người dùng
 exports.deleteUser = async (req, res) => {
   const userId = req.params.id;

@@ -1,3 +1,8 @@
+* {
+    box-sizing: border-box;
+    font-family: "Lexend", sans-serif;
+}
+
 body {
     height: 100vh;
     display: flex;
@@ -62,4 +67,267 @@ a {
 .checkbox {
     height: 50;
     width: 50;
+}
+
+/* style home */
+
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+.main {
+    width: 100%;
+    display: flex;
+}
+
+.main-left {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 20%; 
+    overflow-y: auto;
+    background-color:#141728; 
+}
+
+.main-left-top {
+    padding: 25px 50px;
+}
+
+.main-left li {
+    color: aliceblue;
+    padding: 25px 50px;
+}
+
+.main-left li:hover {
+    border-left: 3px solid #dddddd;
+}
+
+.main-left li i {
+    padding-right: 30px;
+}
+
+.main-left li a {
+    color: aliceblue;
+}
+.main-left-bottom li a{
+    font-weight: 200;
+}
+
+.main-right {
+    width: 80%;
+    margin-left: 20%; 
+}
+
+.main-right-top {
+    align-items: center;
+    display: flex;
+    text-align: center;
+    justify-content: space-between;
+    padding: 15px 25px;
+    border-bottom: 4px solid #5d53b3;
+}
+.other{
+    align-items: center;
+    display: flex;
+}
+.other img{
+   width: 50px;
+   height: 50px;
+   object-fit: cover;
+   border-radius: 50%;
+}
+.other a{
+    padding-left: 20px;
+}
+.main-right-bottom {
+    padding: 0 25px;
+    background-color: #e6e5eb;
+}
+
+.main-right-bottom h2 {
+    padding: 25px 5px;
+}
+
+.main-right-bottom-icon {
+    display: flex;
+    width: 100%;
+    margin-bottom: 25px;
+}
+
+.main-right-bottom-icon .icon {
+    width: 25%;
+    border-radius: 3px;
+    margin: 0 5px;
+    padding: 25px;
+    background-color: rgb(255, 255, 255);
+}
+
+.main-right-bottom-profile {
+    border: 2px solid #dddddd;
+    border-radius: 5px;
+    margin: 5px;
+    background-color: rgb(255, 255, 255);
+}
+
+.main-right-bottom-profile table {
+    width: 100%;
+    text-align: justify;
+}
+
+.main-right-bottom-profile tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.main-right-bottom-profile table tr th {
+    padding: 15px 7px;
+    font-weight: 400;
+    text-transform: uppercase;
+    border-bottom: 1px solid #ccc;
+    background-color: #f9fafe;
+}
+
+.main-right-bottom-profile tr td {
+    padding: 10px;
+    font-weight: bold;
+    font-size: 15px;
+    border-bottom: 1px solid #ccc;
+}
+
+.main-right-bottom-profile tr td:nth-child(3) p {
+    font-weight: 400;
+    background-color: #d5f5db;
+    border-radius: 20px;
+    padding: 5px 15px; 
+    width: auto; 
+    height: auto; 
+    display: inline-block; 
+}
+
+.main-right-bottom-profile tr td:nth-child(4) p {
+    font-weight: 300; 
+}
+
+.main-right-bottom-profile tr td:nth-child(5) p {
+    color: #5d53b3;
+    cursor: pointer;
+}
+.main-right-bottom-profile tr td:nth-child(6) p {
+    color: #5d53b3;
+    cursor: pointer;
+}
+
+.main-right-bottom-profile tr td img {
+    width: 88px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.search form {
+    display: flex; 
+    align-items: center; 
+}
+
+.search input[type="text"] {
+    padding: 8px; 
+    width: 200px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.search button {
+    background-color: white; 
+    color: #ccc;
+    border: none; 
+    padding: 8px 10px; 
+    border-radius: 5px;
+    margin-left: 5px; 
+    cursor: pointer; 
+}
+
+.search button:hover {
+    color: #141728;
+}
+
+.icon {
+    text-align: justify;
+    display: flex;
+    cursor: pointer;
+}
+
+.icon-item {
+    padding-top: 5px;
+    padding-left: 25px;
+}
+
+.icon-item p:first-child {
+    font-weight: bold;
+    padding-bottom: 5px;
+}
+
+.icon-item p:last-child {
+    font-weight: 300;
+    font-size: 15px;
+}
+
+.icon i {
+    color: white;
+    padding: 16px 12.5px;
+    font-size: 27px;
+    width: 59px;
+    height: 59px;
+    background-color: #5d53b3;
+    border-radius: 50%;
+}
+.name p:last-child{
+    font-weight: 400;
+}
+
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    font-size: 20px;
+}
+
+
+th {
+    background-color: #f2f2f2;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.edit-link, .delete-button {
+    color: #007BFF;
+    text-decoration: none;
+    margin-right: 8px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.delete-button {
+    color: #DC3545;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.delete-button:hover {
+    text-decoration: underline;
 }

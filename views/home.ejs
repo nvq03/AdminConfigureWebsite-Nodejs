@@ -3,76 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User List</title>
-    <style>
-        /* CSS to style the list item and links */
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        li {
-            align-items: center;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            padding: 10px;
-            border-radius: 5px;
-            min-width: 600px;
-        }
-
-        li span {
-            margin-right: 20px;
-            font-weight: bold;
-        }
-
-        li a {
-            text-decoration: none;
-            margin-left: 10px;
-            color: blue;
-            margin-left: 50px;
-        }
-
-        li a:hover {
-            text-decoration: underline;
-        }
-
-        .delete-form {
-            display: inline;
-        }
-
-        .delete-button {
-            background-color: #f44336;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 14px;
-            border-radius: 3px;
-            cursor: pointer;
-            margin-left: 20px;
-        }
-
-        .delete-button:hover {
-            background-color: #d32f2f;
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Home</title>
 </head>
 <body>
-    <h2>User List</h2>
-    <ul id="user-list">
-        <% users.forEach(user => { %>
-            <li>
-                <span>ID:</span> <%= user._id %> |
-                <span>User Name:</span> <%= user.name %> |
-                <span>Password:</span> <%= user.password %>
-                <a href="/update/<%= user._id %>">Edit</a>
-                <form method="POST" action="/delete/<%= user._id %>" class="delete-form">
-                    <button type="submit" class="delete-button">Delete</button>
-                </form>
-            </li>
-        <% }) %>
-    </ul>
+    <div class="main">
+        <div class="main-left">
+            <div class="main-left-top">
+                <h1 style="color: aliceblue;">Admin Panel</h1>
+            </div>
+            <div class="main-left-bottom">
+                <li><a href=""><i class="fa-solid fa-chart-pie"></i>Dashboard</a></li>
+                <li><a href=""><i class="fa-brands fa-uikit"></i>Setting</a></li>
+                
+            </div>
+        </div>
+        <div class="main-right">
+            <div class="main-right-top">
+                <div class="search">
+                    <form action="">
+                        <input type="text" placeholder="Search.......">
+                        <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    </form>
+                </div>
+                <div class="other">
+                    <a href=""><i class="fa-solid fa-bell"></i></a>
+                    <a href=""><img src="img/nghi.jpg" alt=""></a>
+                </div>
+            </div>
+            <div class="main-right-bottom">
+                <h2>Admin Dashboard</h2>
+                <div class="main-right-bottom-icon">
+                    <div class="icon">
+                        <i class="fa-solid fa-users"></i>
+                        <div class="icon-item">
+                            <p>8,267</p>
+                            <p>New User</p>
+                        </div>
+                        
+                    </div>
+                    <div class="icon">
+                        <i style="background-color: #5f89f0;" class="fa-solid fa-cart-shopping"></i>
+                        <div class="icon-item">
+                            <p>8,267</p>
+                            <p>Total Orders</p>
+                        </div>
+                    </div>
+                    <div class="icon">
+                        <i style="background-color: #e35d98;" class="fa-brands fa-sellsy"></i>
+                        <div class="icon-item">
+                            <p>8,267</p>
+                            <p>Product Sell</p>
+                        </div>
+                    </div>
+                    <div class="icon">
+                        <i style="padding-left: 20px; background-color: #78d9ed; " class="fa-solid fa-dollar-sign"></i>
+                        <div class="icon-item">
+                            <p>8,267</p>
+                            <p>This Month</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="main-right-bottom-profile">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>User Name</th>
+                                <th>Email</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="user-list">
+                            <% users.forEach(user => { %>
+                            <tr>
+                                <td><%= user._id %></td>
+                                <td><%= user.name %></td>
+                                <td><%= user.email %></td>
+                                <td class="action-buttons">
+                                    <a class="edit-link" href="/update/<%= user._id %>">Edit</a>
+                                    <form method="POST" action="/delete/<%= user._id %>" class="delete-form">
+                                        <button type="submit" class="delete-button">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
