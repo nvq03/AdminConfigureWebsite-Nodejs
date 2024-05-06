@@ -1,6 +1,6 @@
 // controllers/controller.js
 
-const collection = require("../model/users");
+const User = require("../model/users");
 
 // Hiển thị trang đăng nhập
 exports.getLoginPage = (req, res) => {
@@ -15,7 +15,7 @@ exports.getSignupPage = (req, res) => {
 // Hiển thị trang cập nhật người dùng
 exports.getUpdatePage = async (req, res) => {
   const userId = req.params.id;
-  const user = await collection.findOne({ _id: userId });
+  const user = await User.findOne({ _id: userId });
 
   if (user) {
     res.render("update", { userId: userId, user: user });
@@ -26,7 +26,7 @@ exports.getUpdatePage = async (req, res) => {
 
 // Hiển thị trang chủ
 exports.getHomePage = async (req, res) => {
-  const users = await collection.find();
+  const users = await User.find();
   res.render("home", { users });
 };
 
@@ -35,7 +35,7 @@ exports.getDeletePage = async (req, res) => {
   const userId = req.params.id;
 
   try {
-    const user = await collection.findOne({ _id: userId });
+    const user = await User.findOne({ _id: userId });
     if (user) {
       res.render("delete", { userId: userId, user: user });
     } else {
@@ -54,11 +54,11 @@ exports.createUser = async (req, res) => {
     password: req.body.password
   };
 
-  const existingUser = await collection.findOne({ name: data.name });
+  const existingUser = await User.findOne({ name: data.name });
   if (existingUser) {
     res.send("Người dùng đã tồn tại, vui lòng chọn tên khác");
   } else {
-    await collection.insertMany(data);
+    await User.insertMany(data);
     res.redirect("/home");
     console.log("Thêm người dùng thành công");
   }
@@ -66,7 +66,7 @@ exports.createUser = async (req, res) => {
 
 // Hiển thị danh sách người dùng
 exports.displayUsers = async (req, res) => {
-  const users = await collection.find();
+  const users = await User.find();
   res.render("home", { users });
 };
 
@@ -79,7 +79,7 @@ exports.updateUser = async (req, res) => {
   };
 
   try {
-    await collection.updateOne({ _id: userId }, { $set: updatedData });
+    await User.updateOne({ _id: userId }, { $set: updatedData });
     console.log("Cập nhật người dùng thành công");
     res.redirect("/home");
   } catch(error) {
@@ -93,16 +93,21 @@ exports.loginUser = async (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
 
-  const existingUser = await collection.findOne({ name: username });
-  if (existingUser) {
-    if (existingUser.password === password) {
-      res.redirect("/home");
-      console.log("Đăng nhập thành công");
+  try {
+    const existingUser = await User.findOne({ name: username });
+    if (existingUser) {
+      if (existingUser.password === password) {
+        res.redirect("/home");
+        console.log("Đăng nhập thành công");
+      } else {
+        res.send("Mật khẩu không chính xác");
+      }
     } else {
-      res.send("Mật khẩu không chính xác");
+      res.send("Người dùng không tồn tại");
     }
-  } else {
-    res.send("Người dùng không tồn tại");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Lỗi server");
   }
 };
 
@@ -111,7 +116,7 @@ exports.deleteUser = async (req, res) => {
   const userId = req.params.id;
 
   try {
-    await collection.deleteOne({ _id: userId });
+    await User.deleteOne({ _id: userId });
     console.log("Xóa người dùng thành công");
     res.redirect("/home");
   } catch (error) {

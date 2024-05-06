@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sinup</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="form-container">
+        <h2>Sinup</h2>
+        <form action="/signup" method="post">
+            <div class="form-group">
+                <label for="name">Name: </label>
+                <input type="text" id="name" name="username" placeholder="Enter your name" required autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="password">Pasword: </label>
+                <input type="password" id="password" name="password" placeholder="Enter your name" required>
+            </div>
+            <button type="submit" class="submit-btn">Sinup</button>
+            <p>have a account? <a href="/login">Login</a></p>
+        </form>
+    </div>
+</body>
+</html>

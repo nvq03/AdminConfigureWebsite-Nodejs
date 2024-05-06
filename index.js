@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-const collection = require("./model/users");
+const User = require("./model/users");
 const connectDb = require("./config/config");
 
 const app = express();

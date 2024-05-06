@@ -11,4 +11,6 @@ const LoginSchema = new mongoose.Schema({
     }
 });
 
-const collection = new mongoose.model("user", LoginSchema);
+const User = mongoose.model("users", LoginSchema); // Tạo đối tượng mô hình từ mô hình và schema
+
+module.exports = User;

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User List</title>
+    <style>
+        /* CSS to style the list item and links */
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            align-items: center;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+            min-width: 600px;
+        }
+
+        li span {
+            margin-right: 20px;
+            font-weight: bold;
+        }
+
+        li a {
+            text-decoration: none;
+            margin-left: 10px;
+            color: blue;
+            margin-left: 50px;
+        }
+
+        li a:hover {
+            text-decoration: underline;
+        }
+
+        .delete-form {
+            display: inline;
+        }
+
+        .delete-button {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            border-radius: 3px;
+            cursor: pointer;
+            margin-left: 20px;
+        }
+
+        .delete-button:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+    <h2>User List</h2>
+    <ul id="user-list">
+        <% users.forEach(user => { %>
+            <li>
+                <span>ID:</span> <%= user._id %> |
+                <span>User Name:</span> <%= user.name %> |
+                <span>Password:</span> <%= user.password %>
+                <a href="/update/<%= user._id %>">Edit</a>
+                <form method="POST" action="/delete/<%= user._id %>" class="delete-form">
+                    <button type="submit" class="delete-button">Delete</button>
+                </form>
+            </li>
+        <% }) %>
+    </ul>
+</body>
+</html>
