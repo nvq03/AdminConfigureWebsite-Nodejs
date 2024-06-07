@@ -1,7 +1,11 @@
 const mongoose = require('mongoose');
 
-const LoginSchema = new mongoose.Schema({
+const Schema = new mongoose.Schema({
     name: {
+        type: String,
+        require: true
+    },
+    email: {
         type: String,
         require: true
     },
@@ -9,12 +13,17 @@ const LoginSchema = new mongoose.Schema({
         type: String,
         require: true
     },
-    email: {
+    token: {
         type: String,
-        required: true
-      }
+        require: true
+    },
+    role: {
+        type: String,
+        enum: ['admin', 'user'],
+        default: 'user'
+    }
 });
 
-const User = mongoose.model("users", LoginSchema); // Tạo đối tượng mô hình từ mô hình và schema
+const User = new mongoose.model("user",Schema)
 
-module.exports = User;
+module.exports=User

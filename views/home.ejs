@@ -1,102 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <title>Home</title>
-</head>
-<body>
-    <div class="main">
-        <div class="main-left">
-            <div class="main-left-top">
-                <h1 style="color: aliceblue;">Admin Panel</h1>
-            </div>
-            <div class="main-left-bottom">
-                <li><a href=""><i class="fa-solid fa-chart-pie"></i>Dashboard</a></li>
-                <li><a href=""><i class="fa-brands fa-uikit"></i>Setting</a></li>
-                
-            </div>
-        </div>
-        <div class="main-right">
-            <div class="main-right-top">
-                <div class="search">
-                    <form action="">
-                        <input type="text" placeholder="Search.......">
-                        <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-                    </form>
-                </div>
-                <div class="other">
-                    <a href=""><i class="fa-solid fa-bell"></i></a>
-                    <a href=""><img src="img/nghi.jpg" alt=""></a>
-                </div>
-            </div>
-            <div class="main-right-bottom">
-                <h2>Admin Dashboard</h2>
-                <div class="main-right-bottom-icon">
-                    <div class="icon">
-                        <i class="fa-solid fa-users"></i>
-                        <div class="icon-item">
-                            <p>8,267</p>
-                            <p>New User</p>
-                        </div>
-                        
-                    </div>
-                    <div class="icon">
-                        <i style="background-color: #5f89f0;" class="fa-solid fa-cart-shopping"></i>
-                        <div class="icon-item">
-                            <p>8,267</p>
-                            <p>Total Orders</p>
-                        </div>
-                    </div>
-                    <div class="icon">
-                        <i style="background-color: #e35d98;" class="fa-brands fa-sellsy"></i>
-                        <div class="icon-item">
-                            <p>8,267</p>
-                            <p>Product Sell</p>
-                        </div>
-                    </div>
-                    <div class="icon">
-                        <i style="padding-left: 20px; background-color: #78d9ed; " class="fa-solid fa-dollar-sign"></i>
-                        <div class="icon-item">
-                            <p>8,267</p>
-                            <p>This Month</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="main-right-bottom-profile">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>User Name</th>
-                                <th>Email</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="user-list">
-                            <% users.forEach(user => { %>
-                            <tr>
-                                <td><%= user._id %></td>
-                                <td><%= user.name %></td>
-                                <td><%= user.email %></td>
-                                <td class="action-buttons">
-                                    <a class="edit-link" href="/update/<%= user._id %>">Edit</a>
-                                    <form method="POST" action="/delete/<%= user._id %>" class="delete-form">
-                                        <button type="submit" class="delete-button">Delete</button>
-                                    </form>
-                                </td>
-                            </tr>
-                            <% }) %>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/home.css" />
+  </head>
+  <body>
+    <nav>
+      <a href="#" class="logo">User Page</a>
+      <div class="nav-items">
+        <a class="nav-link" ><%= name %></a>
+        <a class="nav-link" ><%= email %></a>
+        <form action="/userlogout" method="post">
+            <button class="download-btn" type="submit">Logout</button>
+        </form>
+      </div>
+
+      <div class="menu-icon">
+        <img src="images/menu-icon.svg" alt="" />
+      </div>
+    </nav>
+
+    <div class="mobile-nav-menu">
+      <a class="nav-link" href="#features">Features</a>
+      <a class="nav-link" href="#pricing">Pricing</a>
+      <a class="nav-link" href="#cta">Download</a>
     </div>
-</body>
+
+    <header>
+      <div class="container">
+        <div class="left">
+          <h1>This is the blog display page</h1>
+          <p>
+            This page will display all blogs for users to view
+          </p>
+        </div>
+
+        <div class="right">
+          <img src="images/hero-image.png" alt="" />
+        </div>
+      </div>
+    </header>
+
+    <div class="blog-header">
+        <h4 style="padding: 10px;">Read Blog Here</h3>
+        <a class="btn" href="/blog">Thêm Blog+</a>
+      </div>
+    <div class="container-card">
+
+            <% blogs.forEach(blog => { %>
+                <div class="blog-card">
+              <img style="width: 300px; height: 200px;" src="<%= blog.image %>" id="image" alt="<%= blog.title %>" />
+              <div class="blog-content">
+                <h3 class="blog-title" id="title"><%= blog.title %></h3>
+                <p class="blog-description" id="description">
+                  <%= blog.description %>
+                </p>
+                <a href="/blog/<%= blog._id %>" class="read-more">Read More</a>
+              </div>
+            </div>
+            <% }) %>
+
+
+    </div>
+
+    <footer>
+      <div class="container">
+        <div class="content">
+          <div class="left">
+            <div class="logo">User Page</div>
+            <p>Admin configure setting user login</p>
+          </div>
+
+          <div class="right">
+            <div class="links">
+              <h3>Quick Links</h3>
+              <ul>
+                <li>
+                  <a href="#">About Us</a>
+                </li>
+
+                <li>
+                  <a href="#">Privacy Policy</a>
+                </li>
+
+                <li>
+                  <a href="#">Terms & Conditions</a>
+                </li>
+              </ul>
+            </div>
+
+            <div class="links">
+              <h3>Contact Us</h3>
+              <ul>
+                <li>+1 (555) 123-4567</li>
+                <li>nguyenquyxu01@gmail.com</li>
+                <li>Da Nang, City,Viet Nam</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="copyright">
+          <p>Designed by Nguyen Van Quy © 2024</p>
+          <div class="socials">
+            <a href="#"><img src="/images/facebook-logo.svg" alt="" /></a>
+            <a href="#"><img src="images/instagram-logo.svg" alt="" /></a>
+            <a href="#"><img src="images/twitter-logo.svg" alt="" /></a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="main.js"></script>
+  </body>
 </html>

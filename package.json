@@ -1,11 +1,15 @@
 {
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
     "ejs": "^3.1.10",
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.3.2",
     "mongose": "^0.0.2-security",
-    "statuses": "^2.0.1"
+    "multer": "^1.4.5-lts.1",
+    "sharp": "^0.33.4",
+    "statuses": "^2.0.1",
+    "validator": "^13.12.0"
   }
 }

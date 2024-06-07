@@ -4,7 +4,7 @@
 }
 
 body {
-    height: 100vh;
+    
     display: flex;
     align-items: center;
     justify-content: center;
@@ -122,8 +122,19 @@ a {
     width: 80%;
     margin-left: 20%; 
 }
-
+.thongtin{
+    margin: 0 10px;
+}
+.thongtin p{
+    margin: 0;
+    padding: 0;
+}
+.thongtin p{
+    text-align: left;
+    padding: 3px;
+}
 .main-right-top {
+    
     align-items: center;
     display: flex;
     text-align: center;
@@ -144,10 +155,23 @@ a {
 .other a{
     padding-left: 20px;
 }
+
 .main-right-bottom {
     padding: 0 25px;
     background-color: #e6e5eb;
 }
+button {
+    padding: 10px;
+    font-size: 14px;
+    color: white;
+    background-color: #5d53b3;
+    cursor: pointer;
+    border-radius: 5px;
+}
+button:hover {
+    background-color: #977fee;
+}
+
 
 .main-right-bottom h2 {
     padding: 25px 5px;
@@ -160,7 +184,7 @@ a {
 }
 
 .main-right-bottom-icon .icon {
-    width: 25%;
+    width: 50%;
     border-radius: 3px;
     margin: 0 5px;
     padding: 25px;
@@ -235,7 +259,7 @@ a {
 
 .search input[type="text"] {
     padding: 8px; 
-    width: 200px;
+    width: 250px;
     border: 1px solid #ccc;
     border-radius: 3px;
 }
@@ -244,7 +268,7 @@ a {
     background-color: white; 
     color: #ccc;
     border: none; 
-    padding: 8px 10px; 
+    padding: 5px 0px; 
     border-radius: 5px;
     margin-left: 5px; 
     cursor: pointer; 
@@ -259,6 +283,13 @@ a {
     display: flex;
     cursor: pointer;
 }
+.icon p{
+    font-size: 20px;
+    padding: 0 20px;
+    font-weight: 500;
+}
+
+
 
 .icon-item {
     padding-top: 5px;
@@ -325,6 +356,16 @@ th {
     background: none;
     border: none;
     padding: 0;
+    cursor: pointer;
+}
+
+.search-button {
+    color: #977fee;
+    background: #ad96ff;
+    border: none;
+    padding: 0;
+    width: 150px;
+    height: 40px;
     cursor: pointer;
 }
 

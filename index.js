@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const User = require("./model/users");
 const connectDb = require("./config/config");
+const cookieParser = require('cookie-parser');
 
 const app = express();
 
@@ -10,8 +11,11 @@ app.use(express.urlencoded({ extended: false }));
 app.set('view engine', 'ejs');
 app.use(express.static("public"));
 
+app.use(cookieParser())
+
 const route = require('./Route/route');
-const { ok } = require('assert');
+
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use('/', route);
 
