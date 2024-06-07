@@ -49,12 +49,35 @@ exports.getAdminPage = async (req, res) => {
 
 
 // Hiển thị trang cập nhật người dùng
+exports.getUpdatePage = async (req, res) => {
+  const userId = req.params.id;
+  const user = await User.findOne({ _id: userId });
 
+  if (user) {
+    res.render("update", { userId: userId, user: user });
+  } else {
+    res.send("Không tìm thấy người dùng");
+  }
+};
 
 
 
 // Hiển thị trang xóa người dùng
+exports.getDeletePage = async (req, res) => {
+  const userId = req.params.id;
 
+  try {
+    const user = await User.findOne({ _id: userId });
+    if (user) {
+      res.render("delete", { userId: userId, user: user });
+    } else {
+      res.send("Người dùng không tồn tại");
+    }
+  } catch (error) {
+    console.error("Lỗi khi xác nhận xóa người dùng:", error);
+    res.send("Đã xảy ra lỗi trong quá trình xác nhận xóa người dùng");
+  }
+};
 
 // Tạo người dùng mới
 exports.createUser = async (req, res) => {
@@ -97,8 +120,25 @@ exports.displayUsers = async (req, res) => {
   res.render("admin", { users, totalUsers, totalAdmins, blogs });
 };
 
-// Cập nhật người dùng
 
+// Cập nhật người dùng
+exports.updateUser = async (req, res) => {
+  const userId = req.params.id;
+  const updatedData = {
+    name: req.body.name,
+    email: req.body.email,
+    role: req.body.role,
+  };
+
+  try {
+    await User.updateOne({ _id: userId }, { $set: updatedData });
+    console.log("Cập nhật người dùng thành công");
+    res.redirect("/admin");
+  } catch (error) {
+    console.error("Lỗi khi cập nhật người dùng:", error);
+    res.send("Đã xảy ra lỗi trong quá trình cập nhật người dùng");
+  }
+};
 
 // Đăng nhập người dùng
 exports.loginUser = async (req, res) => {
@@ -136,7 +176,18 @@ exports.loginUser = async (req, res) => {
   }
 };
 // Xóa người dùng
+exports.deleteUser = async (req, res) => {
+  const userId = req.params.id;
 
+  try {
+    await User.deleteOne({ _id: userId });
+    console.log("Xóa người dùng thành công");
+    res.redirect("/admin");
+  } catch (error) {
+    console.error("Lỗi khi xóa người dùng:", error);
+    res.send("Đã xảy ra lỗi trong quá trình xóa người dùng");
+  }
+};
 
 exports.searchUser = async (req, res) => {
 
