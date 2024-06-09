@@ -62,25 +62,20 @@ exports.getUpdatePage = async (req, res) => {
     res.send("Không tìm thấy người dùng");
   }
 };
+exports.getUpdatePage = async (req, res) => {
+  const userId = req.params.id;
+  const user = await User.findOne({ _id: userId });
+
+  if (user) {
+    res.render("update", { userId: userId, user: user });
+  } else {
+    res.send("Không tìm thấy người dùng");
+  }
+};
 
 
 
 // Hiển thị trang xóa người dùng
-exports.getDeletePage = async (req, res) => {
-  const userId = req.params.id;
-
-  try {
-    const user = await User.findOne({ _id: userId });
-    if (user) {
-      res.render("delete", { userId: userId, user: user });
-    } else {
-      res.send("Người dùng không tồn tại");
-    }
-  } catch (error) {
-    console.error("Lỗi khi xác nhận xóa người dùng:", error);
-    res.send("Đã xảy ra lỗi trong quá trình xác nhận xóa người dùng");
-  }
-};
 
 
 // Tạo người dùng mới
@@ -124,6 +119,7 @@ exports.displayUsers = async (req, res) => {
   const blogs = await Blog.find();
   res.render("admin", { users, totalUsers, totalAdmins, blogs,totalBlog });
 };
+
 
 // Cập nhật người dùng
 exports.updateUser = async (req, res) => {
