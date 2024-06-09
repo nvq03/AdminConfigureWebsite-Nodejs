@@ -14,7 +14,35 @@ var multer = require('multer');
 var upload = multer({ dest: 'uploads/' });
 
 // trang thêm blog
+exports.CreateBlog = [
+  upload.single('image'), 
+  async (req, res) => {
+    try {
+      const { title, description } = req.body;
+      let image = null;
 
+      if (req.file) {
+        image = req.file.path; 
+      }
+
+      if (!validator.isLength(title, { min: 3, max: 100 })) {
+        throw new Error('Tiêu đề phải có từ 3 đến 100 ký tự');
+      }
+      if (!validator.isLength(description, { min: 10, max: 500 })) {
+        throw new Error('Mô tả phải có từ 10 đến 500 ký tự');
+      }
+
+      const newBlog = new Blog({ image, title, description });
+      await newBlog.save();
+
+      const user = await User.findOne({ token: req.cookies.jwt });
+      const blogs = await Blog.find();
+      res.render("home", { name: user.name, email: user.email, blogs });
+    } catch (error) {
+      res.status(400).send(error.message);
+    }
+  },
+];
 
 // Hiển thị trang cập nhật người dùng
 exports.getCreateBlog = async (req, res) => {

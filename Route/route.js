@@ -18,7 +18,7 @@ const UserController = require('../controller/UserController');
     router.post("/delete/:id", controller.deleteUser);
     router.post("/search", controller.searchUser);
     router.post("/logout", controller.logoutAdmin);
-    router.get("/deleteblog/:id", controller.deleteBlog);
+    router.post("/deleteblog/:id", controller.deleteBlog);
     // route user
     router.post("/home",UserController.DisplayBlogHome);
     router.get("/home", UserController.getHomePage);

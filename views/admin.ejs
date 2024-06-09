@@ -24,13 +24,13 @@
             <div class="main-right-top">
                 <div class="search">
                     <form action="/search" method="post">
-                        <input type="text" id="search" name="search" placeholder="Search.......">
+                        <input type="text" id="search" name="search" placeholder="Search Name Or Email User.">
                         <button type="submit" class="search-button" style="color: #ffffff;background: #653cf7;border: none;padding: 0; width: 120px; height: 40px;
                         cursor: pointer;">Search</button>
                     </form>
                 </div>
                 <div class="other">
-                    <a href=""><img src="/images/facebook-logo.svg" alt=""></a>
+                    <a href=""><img src="/images/person.png" alt=""></a>
                     <div class="thongtin">
                         <p id="NameAdmin">Name Admin: <%= name %></p>
                     <p id="EmailAdmin">Email Admin: <%= email %></p>
@@ -57,13 +57,24 @@
                     </div>
                     <div class="icon">
                         <i style="background-color: #5f89f0;" class="fa-solid fa-cart-shopping"></i>
-                        <p>Total Admin</p>
+                        <p style="width: 180px;">Total Admin</p>
                         <p><p><%= totalAdmins %></p></p>
 
                         <div class="icon-item">
 
                         </div>
                     </div>
+
+                    <div class="icon">
+                        <i style="background-color: #5f89f0;" class="fa-solid fa-cart-shopping"></i>
+                        <p>Total Blog</p>
+                        <p><p><%= totalAdmins %></p></p>
+
+                        <div class="icon-item">
+
+                        </div>
+                    </div>
+
                 </div>
                 <div class="main-right-bottom-profile">
                     <table>
@@ -71,6 +82,9 @@
                             <tr>
                                 <th>ID</th>
                                 <th>User Name</th>
+                                <th>User Email</th>
+                                <th>Role</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody id="user-list">
@@ -91,14 +105,17 @@
                           </tbody>
                     </table>
 
+                    <h2>Manage Blog</h2>
+
                 <!-- blog -->
-                <!-- <div class="main-right-bottom-profile">
+                <div class="main-right-bottom-profile">
                 <table>
                     <thead>
                         <tr>
                             <th>ID</th>
                             <th>Blog Name</th>
                             <th>Image Blog</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody id="user-list">
@@ -117,7 +134,7 @@
                       </tbody>
                 </table>
 
-            </div> -->
+            </div>
                 
                 </div>
             </div>

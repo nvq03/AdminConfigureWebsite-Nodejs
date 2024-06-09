@@ -45,7 +45,7 @@
         </div>
 
         <div class="right">
-          <img src="images/hero-image.png" alt="" />
+          <img src="images/blog.png" alt="" />
         </div>
       </div>
     </header>
@@ -58,19 +58,18 @@
 
             <% blogs.forEach(blog => { %>
                 <div class="blog-card">
-              <img style="width: 300px; height: 200px;" src="<%= blog.image %>" id="image" alt="<%= blog.title %>" />
+                  <img style="width: 300px; height: 200px; border-radius: 10px;" src="<%= blog.image %>" id="image" alt="<%= blog.title %>" />
               <div class="blog-content">
                 <h3 class="blog-title" id="title"><%= blog.title %></h3>
                 <p class="blog-description" id="description">
                   <%= blog.description %>
                 </p>
-                <a href="/blog/<%= blog._id %>" class="read-more">Read More</a>
+                <a href="/blog/<%= blog._id %>" style="color: blue;" class="read-more">Read More</a>
               </div>
             </div>
             <% }) %>
-
-
     </div>
+    
 
     <footer>
       <div class="container">

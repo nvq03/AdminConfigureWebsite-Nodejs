@@ -6,6 +6,7 @@ const bcryptjs = require("bcryptjs");
 const { render } = require("ejs");
 const Blog = require("../model/blog");
 
+
 // Hiển thị trang đăng nhập
 exports.getLoginPage = async (req, res) => {
   if (req.cookies.jwt) {
@@ -16,8 +17,9 @@ exports.getLoginPage = async (req, res) => {
             if (user.role === 'admin') {
               const users = await User.find();
               const { totalUsers, totalAdmins } = await getUserCounts();
+              const { totalBlog } = await CountBlog();
               const blogs = await Blog.find();
-              res.render("admin", { users, name: user.name, email: user.email, totalUsers, totalAdmins, blogs });
+              res.render("admin", { users, name: user.name, email: user.email, totalUsers, totalAdmins, blogs, totalBlog });
             } else {
               const blogs = await Blog.find();
               res.render("home", { name: user.name, email: user.email,  blogs });
@@ -43,17 +45,42 @@ exports.getAdminPage = async (req, res) => {
   const users = await User.find();
   const user = await User.findOne({ token: req.cookies.jwt });
   const { totalUsers, totalAdmins } = await getUserCounts();
+  const { totalBlog } = await CountBlog();
   const blogs = await Blog.find();
-  res.render("admin", { users, name: user.name, email: user.email, totalUsers, totalAdmins, blogs });
+  res.render("admin", { users, name: user.name, email: user.email, totalUsers, totalAdmins, blogs,totalBlog });
 };
 
 
 // Hiển thị trang cập nhật người dùng
+exports.getUpdatePage = async (req, res) => {
+  const userId = req.params.id;
+  const user = await User.findOne({ _id: userId });
 
+  if (user) {
+    res.render("update", { userId: userId, user: user });
+  } else {
+    res.send("Không tìm thấy người dùng");
+  }
+};
 
 
 
 // Hiển thị trang xóa người dùng
+exports.getDeletePage = async (req, res) => {
+  const userId = req.params.id;
+
+  try {
+    const user = await User.findOne({ _id: userId });
+    if (user) {
+      res.render("delete", { userId: userId, user: user });
+    } else {
+      res.send("Người dùng không tồn tại");
+    }
+  } catch (error) {
+    console.error("Lỗi khi xác nhận xóa người dùng:", error);
+    res.send("Đã xảy ra lỗi trong quá trình xác nhận xóa người dùng");
+  }
+};
 
 
 // Tạo người dùng mới
@@ -93,12 +120,29 @@ exports.createUser = async (req, res) => {
 exports.displayUsers = async (req, res) => {
   const users = await User.find();
   const { totalUsers, totalAdmins } = await getUserCounts();
+  const { totalBlog } = await CountBlog();
   const blogs = await Blog.find();
-  res.render("admin", { users, totalUsers, totalAdmins, blogs });
+  res.render("admin", { users, totalUsers, totalAdmins, blogs,totalBlog });
 };
 
 // Cập nhật người dùng
+exports.updateUser = async (req, res) => {
+  const userId = req.params.id;
+  const updatedData = {
+    name: req.body.name,
+    email: req.body.email,
+    role: req.body.role,
+  };
 
+  try {
+    await User.updateOne({ _id: userId }, { $set: updatedData });
+    console.log("Cập nhật người dùng thành công");
+    res.redirect("/admin");
+  } catch (error) {
+    console.error("Lỗi khi cập nhật người dùng:", error);
+    res.send("Đã xảy ra lỗi trong quá trình cập nhật người dùng");
+  }
+};
 
 // Đăng nhập người dùng
 exports.loginUser = async (req, res) => {
@@ -116,8 +160,9 @@ exports.loginUser = async (req, res) => {
           httpOnly: true
         });
         const { totalUsers, totalAdmins } = await getUserCounts();
+        const { totalBlog } = await CountBlog();
         const blogs = await Blog.find();
-        res.render("admin", { users, name: check.name, email: check.email, totalUsers, totalAdmins, blogs });
+        res.render("admin", { users, name: check.name, email: check.email, totalUsers, totalAdmins, blogs,totalBlog });
       } else {
         // Nếu là user, điều hướng đến trang home
         res.cookie("jwt", check.token, {
@@ -136,7 +181,18 @@ exports.loginUser = async (req, res) => {
   }
 };
 // Xóa người dùng
+exports.deleteUser = async (req, res) => {
+  const userId = req.params.id;
 
+  try {
+    await User.deleteOne({ _id: userId });
+    console.log("Xóa người dùng thành công");
+    res.redirect("/admin");
+  } catch (error) {
+    console.error("Lỗi khi xóa người dùng:", error);
+    res.send("Đã xảy ra lỗi trong quá trình xóa người dùng");
+  }
+};
 
 exports.searchUser = async (req, res) => {
 
@@ -161,14 +217,16 @@ exports.searchUser = async (req, res) => {
         ],
       });
       const { totalUsers, totalAdmins } = await getUserCounts();
+      const { totalBlog } = await CountBlog();
       const blogs = await Blog.find();
-      res.render("admin", { users, name: user.name, email: user.email, totalUsers, totalAdmins, blogs });
+      res.render("admin", { users, name: user.name, email: user.email, totalUsers, totalAdmins, blogs,totalBlog });
     } else {
       // Không tìm thấy người dùng, lấy tất cả người dùng
       const users = await User.find();
       const { totalUsers, totalAdmins } = await getUserCounts();
+      const { totalBlog } = await CountBlog();
       const blogs = await Blog.find();
-      res.render("admin", { users, name: user.name, email: user.email, totalUsers, totalAdmins, blogs });
+      res.render("admin", { users, name: user.name, email: user.email, totalUsers, totalAdmins, blogs,totalBlog });
     }
   } catch (error) {
     console.error(error);
@@ -209,16 +267,28 @@ async function getUserCounts() {
 }
 
 
+async function CountBlog() {
+  const usersCount = await Blog.find();
+  let totalBlog = 0;
+  usersCount.forEach(user => {
+    totalBlog++
+  });
+  return { totalBlog };
+}
+
+
+
+
 // Xóa blog
 exports.deleteBlog = async (req, res) => {
   const blogId = req.params.id;
 
   try {
     await Blog.deleteOne({ _id: blogId });
-    console.log("Xóa người dùng thành công");
+    console.log("Xóa blog thành công");
     res.redirect("/admin");
   } catch (error) {
-    console.error("Lỗi khi xóa người dùng:", error);
-    res.send("Đã xảy ra lỗi trong quá trình xóa người dùng");
+    console.error("Lỗi khi xóa blog:", error);
+    res.send("Đã xảy ra lỗi trong quá trình xóa blog");
   }
 };
