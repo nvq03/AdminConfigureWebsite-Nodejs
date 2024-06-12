@@ -37,14 +37,14 @@ exports.CreateBlog = [
 
       const user = await User.findOne({ token: req.cookies.jwt });
       const blogs = await Blog.find();
-      res.render("home", { name: user.name, email: user.email, blogs });
+      res.redirect("/home")
     } catch (error) {
       res.status(400).send(error.message);
     }
   },
 ];
 
-// Hiển thị trang cập nhật người dùng
+// Hiển thị trang blog
 exports.getCreateBlog = async (req, res) => {
     res.render("blog");
 
@@ -55,7 +55,7 @@ exports.DisplayBlogHome = async (req, res) => {
   try {
     const user = await User.findOne({ token: req.cookies.jwt });
     const blogs = await Blog.find();
-    res.render("home", { name: user.name, email: user.email, blogs });
+    res.redirect("/home");
   } catch (error) {
     res.status(500).send('Error while fetching blog data');
   }

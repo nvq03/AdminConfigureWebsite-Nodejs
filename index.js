@@ -19,6 +19,6 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use('/', route);
 
-app.listen(5000, () => {
+app.listen(5100, () => {
   console.log("server running on port 5000");
 });

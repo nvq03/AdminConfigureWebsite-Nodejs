@@ -19,10 +19,10 @@ exports.getLoginPage = async (req, res) => {
               const { totalUsers, totalAdmins } = await getUserCounts();
               const { totalBlog } = await CountBlog();
               const blogs = await Blog.find();
-              res.render("admin", { users, name: user.name, email: user.email, totalUsers, totalAdmins, blogs, totalBlog });
+              res.redirect("/admin");
             } else {
               const blogs = await Blog.find();
-              res.render("home", { name: user.name, email: user.email,  blogs });
+              res.redirect("/home");
             }
         } else {
             res.send("error try catch");
@@ -55,7 +55,6 @@ exports.getAdminPage = async (req, res) => {
 exports.getUpdatePage = async (req, res) => {
   const userId = req.params.id;
   const user = await User.findOne({ _id: userId });
-
   if (user) {
     res.render("update", { userId: userId, user: user });
   } else {
@@ -108,7 +107,8 @@ exports.createUser = async (req, res) => {
         await newUser.save();
         const user = await User.findOne({ token: token });
         const blogs = await Blog.find();
-        res.render('home', { blogs, name: user.name, email: user.email });
+        // res.render('home', { blogs, name: user.name, email: user.email });
+        res.redirect("/home");
     }
 } catch (error) {
     res.send("wrong detail");
@@ -133,7 +133,10 @@ exports.updateUser = async (req, res) => {
   const updatedData = {
     name: req.body.name,
     email: req.body.email,
+    password: req.body.password,
     role: req.body.role,
+    token: token,
+    
   };
 
   try {
@@ -164,7 +167,7 @@ exports.loginUser = async (req, res) => {
         const { totalUsers, totalAdmins } = await getUserCounts();
         const { totalBlog } = await CountBlog();
         const blogs = await Blog.find();
-        res.render("admin", { users, name: check.name, email: check.email, totalUsers, totalAdmins, blogs,totalBlog });
+        res.redirect("/admin")
       } else {
         // Nếu là user, điều hướng đến trang home
         res.cookie("jwt", check.token, {
@@ -173,7 +176,7 @@ exports.loginUser = async (req, res) => {
         });
         const user = await User.findOne({ token: req.cookies.jwt });
         const blogs = await Blog.find();
-        res.render('home', { blogs, name: user.name, email: user.email });
+        res.redirect("/home")
       }
     } else {
       res.send("user detail exists");
@@ -196,6 +199,7 @@ exports.deleteUser = async (req, res) => {
   }
 };
 
+//tìm kiếm user
 exports.searchUser = async (req, res) => {
 
   const user = await User.findOne({ token: req.cookies.jwt });
@@ -221,14 +225,9 @@ exports.searchUser = async (req, res) => {
       const { totalUsers, totalAdmins } = await getUserCounts();
       const { totalBlog } = await CountBlog();
       const blogs = await Blog.find();
-      res.render("admin", { users, name: user.name, email: user.email, totalUsers, totalAdmins, blogs,totalBlog });
+      res.render("admin", { users, name: user.name, email: user.email, totalAdmins, totalUsers, totalBlog, blogs });
     } else {
-      // Không tìm thấy người dùng, lấy tất cả người dùng
-      const users = await User.find();
-      const { totalUsers, totalAdmins } = await getUserCounts();
-      const { totalBlog } = await CountBlog();
-      const blogs = await Blog.find();
-      res.render("admin", { users, name: user.name, email: user.email, totalUsers, totalAdmins, blogs,totalBlog });
+      res.redirect("/admin");
     }
   } catch (error) {
     console.error(error);
